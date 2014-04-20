@@ -33,9 +33,7 @@ function with_jquery(f) {
 
 with_jquery(function($) {
 
-	// localStorage["ignoredUsers"] = '["5487", "21398"]';
 	var arr = $.parseJSON(localStorage["ignoredUsers"]);
-	console.log(arr);
 
 	var users = '<div id="ignoredUsersDiv">';
 
@@ -49,7 +47,7 @@ with_jquery(function($) {
 
 	$('#addIgnoredUser').bind("click",function(){
 		$('#addIgnoredUser').remove();
-		$("#ignored-users").append('<span id="add-ignored-user"><table><tbody><tr><td class="vt"><input type="text" id="ignored-user" name="ignored-user" autocomplete="off" class="ac_input"></td><td class="vt"><input id="ignored-user-add" type="button" value="Go"></td> </tr></tbody></table></span>');
+		$("#ignored-users").append('<span id="add-ignored-user"><table><tbody><tr><td class="vt"><input type="text" placeholder="user id" id="ignored-user" name="ignored-user" autocomplete="off" class="ac_input"></td><td class="vt"><input id="ignored-user-add" type="button" value="Go"></td> </tr></tbody></table></span>');
 
 		$("#ignored-user-add").bind('click',function(){
 			var userToIgnore = $("#ignored-user").val();
