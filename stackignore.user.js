@@ -84,6 +84,7 @@ with_jquery(function($) {
 	});
 	if (numAnswersHidden > 0) 
 	{
+		$("h2.bottom-notice.bottom-share-links").css("display", "none");
 		$("div.subheader.answers-subheader h2").append(" <span style='color:grey'> (" + numAnswersHidden + " hidden)</span>");
 
 		$("form.post-form").before("<div class='stackignore-answers-hidden-banner' style='font-size:17px; background-color:rgb(220,240,255); margin:5px; padding:10px; border:3px solid rgb(210,230,245)'>" + numAnswersHidden + ((numAnswersHidden > 1) ? " answers" : " answer") + " hidden by StackIgnore. <a class='stackignore-show-hidden-answers'>Click to show.</a></div>")
@@ -105,7 +106,7 @@ with_jquery(function($) {
 	});
 	if (numCommentsHidden > 0) 
 	{
-		$("div.subheader.answers-subheader h2").append(" <span style='color:grey'> (" + numCommentsHidden + " hidden)</span>");
+		$("h2.bottom-notice.bottom-share-links").css("display", "none");
 
 		$("form.post-form").before("<div class='stackignore-comments-hidden-banner' style='font-size:17px; background-color:rgb(220,240,255); margin:5px; padding:10px; border:3px solid rgb(210,230,245)'>" + numCommentsHidden + ((numCommentsHidden > 1) ? " comments" : " comment") + " hidden by StackIgnore. <a class='stackignore-show-hidden-comments'>Click to show.</a></div>")
 		$(".stackignore-show-hidden-comments").bind('click', function() {
