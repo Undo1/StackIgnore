@@ -79,10 +79,37 @@ with_jquery(function($) {
 			numAnswersHidden = numAnswersHidden + 1;
 			answer.css("background-color", "rgb(220,240,255)");
 			answer.css("display", "none");
+			answer.addClass("hiddenByStackIgnore");
 		}
 	});
 	if (numAnswersHidden > 0) 
 	{
 		$("div.subheader.answers-subheader h2").append(" <span style='color:grey'> (" + numAnswersHidden + " hidden)</span>");
+
+		$("form.post-form").before("<div class='stackignore-answers-hidden-banner' style='font-size:17px; background-color:rgb(220,240,255); margin:5px; padding:10px; border:3px solid rgb(210,230,245)'>" + numAnswersHidden + ((numAnswersHidden > 1) ? " answers" : " answer") + " hidden by StackIgnore. <a class='stackignore-show-hidden-answers'>Click to show.</a></div>")
+		$(".stackignore-show-hidden-answers").bind('click', function() {
+			$("div.hiddenByStackIgnore[id^=answer]").css("display", "block");
+		});
+	}
+	var numCommentsHidden = 0;
+	jQuery.each(arr, function(index, item) {
+		console.log("checking for comments from " + item);
+		var comment = $("tr.comment a.comment-user[href^='/users/" + item + "']").closest("tr[id^=comment]");
+		if (comment.length > 0)
+		{
+			numCommentsHidden = numCommentsHidden + 1;
+			comment.css("background-color", "rgb(220,240,255)");
+			comment.css("display", "none");
+			comment.addClass("hiddenByStackIgnore");
+		}
+	});
+	if (numCommentsHidden > 0) 
+	{
+		$("div.subheader.answers-subheader h2").append(" <span style='color:grey'> (" + numCommentsHidden + " hidden)</span>");
+
+		$("form.post-form").before("<div class='stackignore-comments-hidden-banner' style='font-size:17px; background-color:rgb(220,240,255); margin:5px; padding:10px; border:3px solid rgb(210,230,245)'>" + numCommentsHidden + ((numCommentsHidden > 1) ? " comments" : " comment") + " hidden by StackIgnore. <a class='stackignore-show-hidden-comments'>Click to show.</a></div>")
+		$(".stackignore-show-hidden-comments").bind('click', function() {
+			$("tr.comment.hiddenByStackIgnore").css("display", "block");
+		});
 	}
 });
