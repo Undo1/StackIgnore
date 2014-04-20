@@ -71,27 +71,4 @@ with_jquery(function($) {
 		});
 	});
 
-	return;
-
-	var string = '<div id="hot-network-questions" class="module spam-list"><h4><span class="supernovabg mod-flag-indicator" style="font-size:16px">';
-	$.ajax({
-		type: "POST",
-		url: "http://" + domain + "/cinder/flagged.php",
-		data: "",
-		success: function(data)
-		{
-				console.log(data);
-				var obj = eval("(" + data + ")");
-				string = string + obj.length;
-
-				string = string + "</span> Network Spam</h4><ul>";
-
-				for (var i = 0; i < obj.length; i++) {
-				    string = string + "<li><div class='favicon favicon-" + obj[i]["APISiteName"] + "' title=''></div><a href='http://" + obj[i]["Site"] + "/q/" + obj[i]["PostId"] + "'>" + obj[i]["Title"] + "</a></li>";
-				}
-				string = string + "</ul></div>";
-
-				$("div #sidebar").prepend(string);
-		},
-	});
 });
