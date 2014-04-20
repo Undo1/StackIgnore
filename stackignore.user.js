@@ -70,5 +70,19 @@ with_jquery(function($) {
 			$("#ignoredUsersDiv").append('<a href="/users/' + userToIgnore + '" class="post-tag user-tag ignored-user-tag-' + userToIgnore + '" rel="tag">' + userToIgnore + '</a>')
 		});
 	});
-
+	var numAnswersHidden = 0;
+	jQuery.each(arr, function(index, item) {
+		console.log("checking for answers from " + item);
+		var answer = $("div.user-details a[href^='/users/" + item + "']").closest("div[id^=answer]");
+		if (answer.length > 0)
+		{
+			numAnswersHidden = numAnswersHidden + 1;
+			answer.css("background-color", "rgb(220,240,255)");
+			answer.css("display", "none");
+		}
+	});
+	if (numAnswersHidden > 0) 
+	{
+		$("div.subheader.answers-subheader h2").append(" <span style='color:grey'> (" + numAnswersHidden + " hidden)</span>");
+	}
 });
