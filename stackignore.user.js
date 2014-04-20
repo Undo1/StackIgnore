@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name Cinder Client
-// @description Flag-tracker-thingy
-// @namespace Charcoal (This is to avoid conflicts with userscripts that share a name)
-// @author Charcoal Team
+// @name StackIgnore
+// @description To ignore folks on Stack Exchange
+// @namespace Undo
+// @author Undo
 // @license MIT
 // @include http://stackoverflow.com/*
 // @include http://serverfault.com/*
