@@ -33,28 +33,47 @@ function with_jquery(f) {
 
 with_jquery(function($) {
 
-	var domain = "www.erwaysoftware.com";
+	// localStorage["ignoredUsers"] = '["5487", "21398"]';
+	var arr = $.parseJSON(localStorage["ignoredUsers"]);
+	console.log(arr);
 
-	$('.post-menu').append($('<span class="lsep">|</span><a class="spam" href="javascript:void(0)" title="Mark as spam">spam</a>'));
-	$('.spam').bind("click",function(){
-		if(!confirm("Are you sure you want to flag this post as spam and submit to Cinder?")){
-			return;
-		}
-		var postid=$(this).closest('div.question,div[id^=answer]').data('questionid')||$(this).closest('div.question,div[id^=answer]').data('answerid');
-		var argstring = 'site=' + window.location.host + "&userid=" + StackExchange.options.user.userId + "&title=" + encodeURIComponent($("div#question-header h1 a.question-hyperlink").html()) + "&postid=" + postid;
-		console.log(argstring);
-		$.ajax({
-			type: "POST",
-			url: "http://" + domain + "/cinder/flag.php",
-			data: argstring,
-			success: function(data)
-			{
-					console.log(data);
-			},
-		});
-		// TODO: Add some error reporting
-		$.post('/flags/posts/'+postid+'/add/PostSpam',{fkey:StackExchange.options.user.fkey});
+	var users = '<div id="ignoredUsersDiv">';
+
+	jQuery.each(arr, function(index, item) {
+		users = users + '<a href="/users/' + item + '" class="post-tag user-tag ignored-user-tag-' + item + '" rel="tag">' + item + '</a>';
 	});
+
+	users = users + '</div>';
+
+	$("div#interesting-tags").after('<div class="module" id="ignored-users"><h4 id="h-ignored-users">Ignored users</h4><div id="ignoredUsers"></div>' + users + '<span id="add-ignored"></span><a id="addIgnoredUser" class="">Add/remove an ignored user</a><br></div></div>');
+
+	$('#addIgnoredUser').bind("click",function(){
+		$('#addIgnoredUser').remove();
+		$("#ignored-users").append('<span id="add-ignored-user"><table><tbody><tr><td class="vt"><input type="text" id="ignored-user" name="ignored-user" autocomplete="off" class="ac_input"></td><td class="vt"><input id="ignored-user-add" type="button" value="Go"></td> </tr></tbody></table></span>');
+
+		$("#ignored-user-add").bind('click',function(){
+			var userToIgnore = $("#ignored-user").val();
+
+			if (userToIgnore.length < 1) return;
+
+			var arr = $.parseJSON(localStorage["ignoredUsers"]);
+			
+			var i = arr.indexOf(userToIgnore);
+			if(i != -1) {
+				arr.splice(i, 1);
+				console.log("yay");
+				$(".ignored-user-tag-" + userToIgnore).remove();
+				localStorage["ignoredUsers"] = JSON.stringify(arr);
+				return;
+			}
+
+			arr.push(userToIgnore);
+			localStorage["ignoredUsers"] = JSON.stringify(arr);
+			$("#ignoredUsersDiv").append('<a href="/users/' + userToIgnore + '" class="post-tag user-tag ignored-user-tag-' + userToIgnore + '" rel="tag">' + userToIgnore + '</a>')
+		});
+	});
+
+	return;
 
 	var string = '<div id="hot-network-questions" class="module spam-list"><h4><span class="supernovabg mod-flag-indicator" style="font-size:16px">';
 	$.ajax({
