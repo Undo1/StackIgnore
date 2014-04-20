@@ -29,18 +29,18 @@ function with_jquery(f) {
 	document.body.appendChild(script);
 };
 
-
-
-with_jquery(function($) {
+with_jquery(function(jQuery) {
 
 	var arr = $.parseJSON(localStorage["ignoredUsers"]);
+	
+	if (arr == null || arr == undefined) arr = [];
+	localStorage["ignoredUsers"] = JSON.stringify(arr);
 
 	var users = '<div id="ignoredUsersDiv">';
 
 	jQuery.each(arr, function(index, item) {
 		users = users + '<a href="/users/' + item + '" class="post-tag user-tag ignored-user-tag-' + item + '" rel="tag">' + item + '</a>';
 	});
-
 	users = users + '</div>';
 
 	$("div#interesting-tags").after('<div class="module" id="ignored-users"><h4 id="h-ignored-users">Ignored users</h4><div id="ignoredUsers"></div>' + users + '<span id="add-ignored"></span><a id="addIgnoredUser" class="">Add/remove an ignored user</a><br></div></div>');
