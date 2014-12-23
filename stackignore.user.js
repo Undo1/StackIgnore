@@ -113,7 +113,7 @@ with_jquery(function($) {
 	
 	function stackIgnoreBanner(el, html, bannerClass) {
 		return $("<div>" + html + "</div>").css({
-			fontSize: '17px;,
+			fontSize: '17px',
 			backgroundColor: 'rgb(220,240,255)',
 			margin: '5px',
 			padding: '10px',
