@@ -42,7 +42,7 @@ with_jquery(function($) {
 	});
 	users += '</div>';
 
-	$("div#interesting-tags").after('<div class="module" id="ignored-users"><h4 id="h-ignored-users">Ignored users</h4><div id="ignoredUsers"></div>' + users + '<span id="add-ignored"></span><a id="addIgnoredUser" class="">Add/remove an ignored user</a><br></div></div>');
+	$("div#sidebar").prepend('<div class="module" id="ignored-users"><h4 id="h-ignored-users">Ignored users</h4><div id="ignoredUsers"></div>' + users + '<span id="add-ignored"></span><a id="addIgnoredUser" class="">Add/remove an ignored user</a><br></div></div>');
 
 	$('#addIgnoredUser').bind("click", function(){
 		$('#addIgnoredUser').remove();
